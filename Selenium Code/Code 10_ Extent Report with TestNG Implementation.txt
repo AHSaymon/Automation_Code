@@ -1,0 +1,160 @@
+//code 1: ExtentReport 
+package frameworke_implementation;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Extent_Report_DEMO {
+	
+public static void main(String[] args) {
+		
+		// start reporters
+        ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter("extent.html");
+    
+        // create ExtentReports and attach reporter(s)
+        ExtentReports extent = new ExtentReports();
+        extent.attachReporter(htmlReporter);
+
+        // creates a toggle for the given test, adds all log events under it    
+        ExtentTest test1 = extent.createTest("Nexchar Sign in page", "This report will show us the pass & fail method of extent report");
+        
+        WebDriverManager.chromedriver().setup();
+        WebDriver driver= new ChromeDriver();
+        
+        // way 1: For message print in extent report
+        
+        test1.log(Status.INFO, " webdriver setup completed");
+        
+        
+        driver.get("https://nexchar.com/signin");
+        
+     // way 2: For message print in extent report
+        test1.pass("nexchar url visit");
+        
+        driver.findElement(By.id("Email")).sendKeys("hamidsaymon9@gmail.com");
+        test1.pass("username fill up");
+        
+        driver.findElement(By.id("Password")).sendKeys("Abc12345");
+        test1.pass("password fill up");
+        
+        driver.findElement(By.xpath("//button[contains(text(),'Sign in')]")).click();
+        test1.pass("sign in button is working");
+        
+        driver.close();
+        test1.pass("close the browser");
+        
+        test1.info("test successful");
+        
+        
+     // calling flush writes everything to the log file
+        extent.flush();
+        
+	}
+
+}
+
+
+
+
+
+// Code 2: ExtentReport with testNG
+package frameworke_implementation;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Extent_Report_DEMO_TestNG {
+	
+	
+	private static WebDriver driver=null;
+	ExtentReports extent;
+	ExtentHtmlReporter htmlReporter;
+	ExtentTest test1;
+
+		@BeforeTest
+		public void setUP()
+		{
+			// start reporters
+	        htmlReporter = new ExtentHtmlReporter("extent.html");
+	    
+	        // create ExtentReports and attach reporter(s)
+	        extent = new ExtentReports();
+	        extent.attachReporter(htmlReporter);
+		}
+		
+		@Test
+		public void test()
+		{
+			 test1 = extent.createTest("Nexchar Sign in page", "This report will show us the pass & fail method of extent report");
+		        
+		        WebDriverManager.chromedriver().setup();
+		        driver= new ChromeDriver();
+		        
+		        test1.log(Status.INFO, " webdriver setup completed");
+		        
+		        
+		        driver.get("https://nexchar.com/signin");
+		        test1.pass("nexchar url visit");
+		        
+		        driver.findElement(By.id("Email")).sendKeys("hamidsaymon9@gmail.com");
+		        test1.pass("username fill up");
+		        
+		        driver.findElement(By.id("Password")).sendKeys("Abc12345");
+		        test1.pass("password fill up");
+		        
+		        driver.findElement(By.xpath("//button[contains(text(),'Sign in')]")).click();
+		        test1.pass("sign in button is working");
+		        
+		        driver.close();
+		        test1.pass("close the browser");
+		        
+		        test1.info("test successful");
+		 
+		}
+		
+		@AfterTest
+		public void tearDown()
+		{
+			// calling flush writes everything to the log file
+	        extent.flush();	
+		}
+
+	}
+	
+
+	
+
+	
+        
+      
+
+
+
+
+	
+
+	
+        
+      
+
+
+

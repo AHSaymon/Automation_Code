@@ -1,0 +1,34 @@
+//package: lanuchingBrowser
+//class name: url visit using WebDriverManager
+
+
+package lanuchingBrowser;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Url_visit_using_webdrivermanager {
+	
+	// main method create
+	public static void main(String[] args) {
+		
+		
+		// Chrome browser
+		
+		//ChromeWebdriver location setup using webdrivermanager
+		
+		WebDriverManager.chromedriver().setup();
+		
+		// chrome browser webdriver object
+		
+		WebDriver driver=new ChromeDriver();
+		
+		// url visit method
+		driver.get("https://www.youtube.com/");
+		
+		
+	}
+
+}

@@ -1,0 +1,205 @@
+// Theory Blog: https://www.guru99.com/keyboard-mouse-events-files-webdriver.html
+// Tutorial video: https://www.youtube.com/watch?v=UlOREVRHpYs&t=2860s
+
+// Code 1: Calendar_automation_with_Action_class
+
+package action_class;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Calendar_automation_with_Action_class {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver=new ChromeDriver();
+		
+		driver.get("http://seleniumpractise.blogspot.com/2016/08/how-to-handle-calendar-in-selenium.html");
+		
+		Thread.sleep(3000);
+		
+		// click on calendar textbox button 
+		
+		driver.findElement(By.id("datepicker")).click();
+		
+		// WebElement object create for  10 th october
+		//WebElement oct10=driver.findElement(By.xpath("//a[contains(text(),'10')]"));
+		
+		// Next month click or visit in November month 
+	
+	
+		// Object create of next button
+		
+		WebElement November= driver.findElement(By.xpath("//span[contains(text(),'Next')]"));
+		
+		// Action Class create with an action object
+		
+		Actions act=new Actions(driver);
+		
+		Thread.sleep(3000);
+		// click on 10th October
+		
+		//act.moveToElement(oct10).click().build().perform();
+		act.moveToElement(November).click().build().perform();
+		
+		Thread.sleep(3000);
+		
+		// November 7th visit
+		
+		// November 7th object create
+		
+		WebElement Nov7 =driver.findElement(By.xpath("//tbody/tr[2]/td[1]/a[1]"));
+		
+		act.moveToElement(Nov7).click().build().perform();
+		
+		
+		
+		
+		
+
+	}
+
+}
+
+
+// code 2: Mouse_action_clickAll_rightClick
+ 
+package action_class;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Mouse_action_clickAll_rightClick {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver=new ChromeDriver();
+		
+		driver.get("https://www.facebook.com/");
+		
+		// object create for fullname
+		WebElement fullname=driver.findElement(By.id("email"));
+	
+		
+		Actions act=new Actions(driver);
+		
+		// Type hello in full name text box
+		//act.moveToElement(fullname).sendKeys("Hello").build().perform();
+		
+		// Type "hello & select all" in full name text box
+		//act.moveToElement(fullname).doubleClick().build().perform();
+		
+		// Type "hello & select all & right click" in full name text box
+		act.moveToElement(fullname).sendKeys("Hello").doubleClick().contextClick().build().perform();
+		
+
+	}
+
+}
+
+
+// Code 3: MouseHover_action
+
+package action_class;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class MouseHover_action {
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver=new ChromeDriver();
+		
+		driver.get("https://opensource-demo.orangehrmlive.com/");
+		
+		driver.findElement(By.name("txtUsername")).sendKeys("Admin");
+		driver.findElement(By.name("txtPassword")).sendKeys("admin123");
+		driver.findElement(By.name("Submit")).click();
+		
+		
+		WebElement admin=driver.findElement(By.xpath("//b[contains(text(),'Admin')]"));
+		WebElement usermanage=driver.findElement(By.xpath("//a[@id='menu_admin_UserManagement']"));
+		WebElement users=driver.findElement(By.xpath("//a[@id='menu_admin_viewSystemUsers']"));
+		
+		Actions act=new Actions(driver);
+		
+		// Mouse hover in the admin button
+		act.moveToElement(admin).build().perform();
+		
+		// Mouse hover in the usermanagement button
+		act.moveToElement(usermanage).build().perform();
+		
+		Thread.sleep(3000);
+		
+		// Users button click
+		act.moveToElement(users).click().build().perform();
+		
+	}
+	
+
+}
+
+
+// Code 4: Robot_class_remind
+ 
+package action_class;
+
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Robot_class_remind {
+
+	public static void main(String[] args) throws AWTException {
+		// TODO Auto-generated method stub
+		
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver=new ChromeDriver();
+		
+		driver.get("https://www.nexchar.com/contactus");
+		
+		driver.findElement(By.id("FullName")).sendKeys("abc");
+		
+		driver.findElement(By.id("Email")).sendKeys("a@gmail.com");
+		
+		driver.findElement(By.id("Message")).sendKeys("robot");
+		
+		// robot class create with an object
+		
+		Robot rb= new Robot();
+		
+		// tab button automate
+		rb.keyPress(KeyEvent.VK_TAB);
+
+		// Enter button automate
+		rb.keyPress(KeyEvent.VK_ENTER);
+	}
+
+}

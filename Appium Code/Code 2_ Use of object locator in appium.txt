@@ -1,0 +1,94 @@
+package openApp;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.remote.DesiredCapabilities;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
+
+public class AppOpening {
+	
+	// Make AppiumDriver<MobileElement> as a class variable
+	static AppiumDriver<MobileElement> driver;
+
+	
+	// main method
+	public static void main(String[] args) {
+		
+		System.out.println("App open");
+		
+		try{
+			// Execute the Openapp() function
+			
+			Openapp();
+			
+		}catch(Exception exp)
+		{
+			System.out.println(exp.getCause());
+			System.out.println(exp.getMessage());
+			exp.printStackTrace();
+		
+		}
+	
+	}
+	
+	
+	public static void Openapp() throws Exception
+	{
+		// DesiredCapabilities object create
+		
+		DesiredCapabilities cap=new DesiredCapabilities();
+		// device setup 
+		cap.setCapability("deviceName", "OPPO A71 (2018)");
+		cap.setCapability("udid", "f863c29");
+		cap.setCapability("platformName", "Android");
+		cap.setCapability("platformVersion", "7.1.1");
+		// Application setup details
+		cap.setCapability("appPackage", "com.google.android.calculator");
+		cap.setCapability("appActivity", "com.android.calculator2.Calculator");
+		cap.setCapability("noReset", "true");
+		cap.setCapability("fullReset", "false");
+		
+		
+		URL url = new URL("http://127.0.0.1:4723/wd/hub");
+		Thread.sleep(2000);
+		driver=new AppiumDriver<MobileElement>(url,cap);
+		
+		Thread.sleep(2000);
+		
+		// digit 2 object create & click 
+		MobileElement digit2Button=driver.findElement(By.id("com.google.android.calculator:id/digit_2"));
+		digit2Button.click();
+		
+		// Addition button object create & click 
+		MobileElement digitAddButton=driver.findElement(By.id("com.google.android.calculator:id/op_add"));
+		digitAddButton.click();
+		
+		// digit 2 object create & click 
+		MobileElement digittwoButton=driver.findElement(By.id("com.google.android.calculator:id/digit_2"));
+		digittwoButton.click();
+		
+		// equal button object create & click 
+		MobileElement digitequalButton=driver.findElement(By.id("com.google.android.calculator:id/eq"));
+		digitequalButton.click();
+		
+		// capture the result
+		MobileElement result=driver.findElement(By.id("com.google.android.calculator:id/result_final"));
+		System.out.println(result.getText());
+		
+		digitAddButton.click();
+		digittwoButton.click();
+		digitequalButton.click();
+		
+		driver.findElement(By.id("com.google.android.calculator:id/mode")).click();;
+		
+		// click on more option button
+		//driver.findElement(By.xpath("//android.widget.ImageView[@content-desc='More options']")).click();
+		
+	}
+
+}
+

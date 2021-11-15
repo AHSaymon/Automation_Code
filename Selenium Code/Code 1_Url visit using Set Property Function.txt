@@ -1,0 +1,24 @@
+package lanuchingBrowser;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class Url_visit_using_setProperty {
+
+	public static void main(String[] args) {
+		
+		// Firefox browser
+		
+		// Gecko driver location set up using set property
+		
+		System.setProperty("webdriver.gecko.driver", "F:\\Qamon\\Selenium with java Beginners course\\Batch 02\\Batch02QAmon\\SeleniumCode\\drivers\\geckodriver\\geckodriver.exe");
+		
+		//  firefox browser webdriver object
+		WebDriver driver= new FirefoxDriver();
+		
+		// url visit
+		driver.get("https://mvnrepository.com/");
+
+	}
+
+}
